@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  db:
+    image: ${image}
+    container_name: aeropuertoPostgresRedisDB
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - TZ=${TZ}
+    ports:
+      - "${postgres_port}:5432"
+    volumes:
+      - .data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  default:
+    external: true
+    name: aeropuerto-net
