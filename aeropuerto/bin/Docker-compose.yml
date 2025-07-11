@@ -1,0 +1,12 @@
+services:
+  aeropuerto-server:
+    image: aeropuerto-api:latest
+    container_name: aeropuerto-api
+    build:
+      context: .
+      dockerfile: DockerFile
+    ports:
+      - "8080:8080"
+networks:
+  default:
+    name: aeropuerto-net
